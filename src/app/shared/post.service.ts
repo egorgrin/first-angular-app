@@ -5,6 +5,7 @@ import {map} from "rxjs/operators";
 import {Post} from "./interfaces";
 import {environment} from "../../environments/environment";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,10 +21,23 @@ export class PostService {
       map((res: Post) => {
         return {
           ...post,
-          id: res.name,
+          id: res.id,
           date: new Date(post.date)
         }
       })
     )
+  }
+
+  getAll(): Observable<Post[]> {
+    return this.http.get(`${environment.firebaseDbUrl}/posts.json`)
+      .pipe(map((res: { [key: string]: any }) => {
+        return Object
+          .keys(res)
+          .map(key => ({
+            ...res[key],
+            id: key,
+            date: new Date(res[key].date)
+          }))
+      }))
   }
 }
