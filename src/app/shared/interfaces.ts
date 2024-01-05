@@ -10,7 +10,7 @@ export interface FirebaseAuthResponse {
 }
 
 export interface Post {
-  id?: string
+  name?: string
   title: string
   text: string
   author: string
