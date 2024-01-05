@@ -11,6 +11,7 @@ import {EditPageComponent} from './edit-page/edit-page.component';
 import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "./shared/services/auth.guard";
 import {AppModule} from "../app.module";
+import {SearchPipe} from "./shared/search.pipe";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {AppModule} from "../app.module";
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    SearchPipe,
     RouterModule.forChild([
       {
         path: '', component: AdminLayoutComponent, children: [
@@ -36,9 +38,11 @@ import {AppModule} from "../app.module";
         ]
       }
     ]),
-    AppModule
   ],
-  exports: [RouterModule],
+  exports: [
+    RouterModule,
+    SearchPipe
+  ],
   providers: [AuthGuard]
 
 })
