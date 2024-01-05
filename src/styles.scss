@@ -174,8 +174,15 @@ img {
 .bg-danger,
 .badge-danger,
 .alert-danger {
+  padding: 1rem;
   background: var(--danger-color);
   color: #fff;
+}
+
+.alert-info {
+  padding: 1rem;
+  background: var(--light-color);
+  color: #000;
 }
 
 .btn-success,
