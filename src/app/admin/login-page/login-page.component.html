@@ -43,9 +43,10 @@
   </div>
 
   <button
-    [disabled]="form.invalid"
+    [disabled]="form.invalid || submitted"
     type="submit"
     class="btn bg-primary"
-  >Apply
+  >
+    Apply
   </button>
 </form>
