@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PostService} from "../../shared/post.service";
 import {Post} from "../../shared/interfaces";
 import {Subscription} from "rxjs";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'app-dashboard-page',
@@ -12,7 +13,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   posts: Post[] = []
   pSub: Subscription
-  searchStr = ''
+  searchStr  = ''
+
 
   constructor(
     private postsService: PostService
@@ -26,7 +28,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pSub = this.postsService.getAll().subscribe(posts => {
       this.posts = posts
-      // console.log(posts)
     })
 
   }
