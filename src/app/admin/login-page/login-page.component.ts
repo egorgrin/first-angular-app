@@ -19,13 +19,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   form: FormGroup
-  submitted: boolean = false
+  submitted = false
   message: string
 
   ngOnInit() {
     this.route.queryParams.subscribe((params: Params) => {
       if (params['loginAgain']) {
-        this.message = 'Please, login'
+        this.message = 'Please, log in'
+      } else if (params['authFailed']) {
+        this.message = 'Session is expired'
       }
     })
     this.form = new FormGroup({
@@ -54,13 +56,20 @@ export class LoginPageComponent implements OnInit {
       returnSecureToken: false
     }
 
-    this.auth.login(user).subscribe(() => {
-      this.form.reset()
-      this.router.navigate(['/admin', 'dashboard'])
-      this.submitted = false
-    }, () => {
-      this.submitted = false
-    })
+    this.auth.login(user).subscribe({
+      next: () => {
+
+
+        this.form.reset();
+        this.router.navigate(['/admin', 'dashboard']);
+        this.submitted = false;
+      },
+      error: (e) => {
+        console.log(e)
+        this.submitted = false;
+      }
+    });
+
   }
 
 }

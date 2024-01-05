@@ -4,7 +4,7 @@ import {User} from "../../../shared/interfaces";
 import {catchError, Observable, Subject, tap, throwError} from "rxjs";
 import {environment} from "../../../../environments/environment";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 
 export class AuthService {
 
@@ -40,15 +40,15 @@ export class AuthService {
     return !!this.token
   }
 
-  private handleError = (err: HttpErrorResponse) => {
-    const {message} = err.error.error
+  private handleError = (err: HttpErrorResponse): Observable<never> => {
+    const errorMessage = err?.error?.error?.message || 'An error occurred';
 
-    if (message === 'INVALID_LOGIN_CREDENTIALS') {
-      this.error$.next('Wrong email or password!')
+    if (errorMessage === 'INVALID_LOGIN_CREDENTIALS') {
+      this.error$.next('Wrong email or password!');
     }
 
-    return throwError(() => err)
-  }
+    return throwError(() => err);
+  };
 
   private setToken(res) {
     if (res) {
