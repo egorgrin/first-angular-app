@@ -1,8 +1,9 @@
-import {NgModule, Provider} from '@angular/core';
+import {isDevMode, NgModule, Provider} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {registerLocaleData} from "@angular/common";
-import localeRu from "@angular/common/locales/ru";
 import localeUs from "@angular/common/locales/es-US";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 
 import {AppRoutingModule} from './app-routing.module';
@@ -12,7 +13,6 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {PostPageComponent} from './post-page/post-page.component';
 import {PostComponent} from './shared/components/post/post.component';
 import {SharedModule} from "./shared/shared.module";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "./shared/auth.interceptor";
 
 registerLocaleData(localeUs, 'us')
@@ -34,7 +34,13 @@ const INTERCEPTOR_PROVIDER: Provider = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   exports: [
 
