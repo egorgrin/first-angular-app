@@ -10,9 +10,9 @@ import {CreatePageComponent} from './create-page/create-page.component';
 import {EditPageComponent} from './edit-page/edit-page.component';
 import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "./shared/services/auth.guard";
-import {AppModule} from "../app.module";
 import {SearchPipe} from "./shared/search.pipe";
 import {AlertComponent} from "./shared/components/alert/alert.component";
+import {AlertService} from "./shared/services/alert.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import {AlertComponent} from "./shared/components/alert/alert.component";
     LoginPageComponent,
     DashboardPageComponent,
     CreatePageComponent,
-    EditPageComponent
+    EditPageComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +29,6 @@ import {AlertComponent} from "./shared/components/alert/alert.component";
     FormsModule,
     ReactiveFormsModule,
     SearchPipe,
-    AlertComponent,
     RouterModule.forChild([
       {
         path: '', component: AdminLayoutComponent, children: [
@@ -45,7 +45,10 @@ import {AlertComponent} from "./shared/components/alert/alert.component";
     RouterModule,
     SearchPipe
   ],
-  providers: [AuthGuard]
+  providers: [
+    AuthGuard,
+    AlertService
+  ]
 
 })
 
