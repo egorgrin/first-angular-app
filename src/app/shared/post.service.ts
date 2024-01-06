@@ -28,6 +28,10 @@ export class PostService {
     )
   }
 
+  remove(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.firebaseDbUrl}/posts/${id}.json`)
+  }
+
   getAll(): Observable<Post[]> {
     return this.http.get(`${environment.firebaseDbUrl}/posts.json`)
       .pipe(map((res: { [key: string]: any }) => {
