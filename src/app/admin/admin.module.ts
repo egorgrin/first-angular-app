@@ -12,6 +12,7 @@ import {SharedModule} from "../shared/shared.module";
 import {AuthGuard} from "./shared/services/auth.guard";
 import {AppModule} from "../app.module";
 import {SearchPipe} from "./shared/search.pipe";
+import {AlertComponent} from "./shared/components/alert/alert.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {SearchPipe} from "./shared/search.pipe";
     FormsModule,
     ReactiveFormsModule,
     SearchPipe,
+    AlertComponent,
     RouterModule.forChild([
       {
         path: '', component: AdminLayoutComponent, children: [
